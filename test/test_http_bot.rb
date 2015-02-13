@@ -7,31 +7,57 @@ unless Kernel.respond_to?(:require_relative)
 end
 
 require_relative 'helper'
+require 'em-http'
 
-class TestTorTCPBotCallback
-	attr_reader :data
-	def initialize
-		@data = ""
-	end
-	def call(data)
-    puts data
-		@data = data
+class TestHttpServerCallback
+	def handle_http_request(headers, body)
+		"TORCH"
 	end
 end
-
-SOCKS_HOST="127.0.0.1"
-SOCKS_PORT=9050
 
 class TestTorTCPBot < Minitest::Test
   def test_connect_to_an_HTTP_server_via_Tor_and_execute_a_basic_command
+    data = ""
+    connection_opts = {
+        :proxy => {
+           :host => '127.0.0.1',
+           :port => 9050,
+           :type => :socks5
+        },
+        :connect_timeout => 300,
+        :inactivity_timeout => 300
+    }
 		EM.run {
-			callback = TestTorTCPBotCallback.new
-			clnt = EventMachine::connect SOCKS_HOST, SOCKS_PORT, Rubot::Control::Tor::HttpGet, "http://xmh57jrzrnw6insl.onion/index.html", callback
-			timer = EventMachine::Timer.new(15) do
-				refute_equal('',callback.data)
-				assert(callback.data =~ /TORCH/i)
-				EventMachine::stop_event_loop
-			end
+      #srvr = EventMachine::start_server "0.0.0.0", 8080, Rubot::Service::HttpServer, TestHttpServerCallback.new
+      clnt = EventMachine::HttpRequest.new("http://wnlya3iqufiejln7.onion:80/index.html", connection_opts).get
+      clnt.callback do
+        data = clnt.response
+        EM.stop
+      end
+      clnt.errback do
+        EM.stop
+      end
 		}
+		refute_equal('', data)
+		assert(data =~ /TORCH/i)
+	end
+
+  def test_connect_to_an_HTTP_server_and_execute_a_basic_command
+    data = ""
+    EventMachine.run {
+      #srvr = EventMachine::start_server "0.0.0.0", 8080, Rubot::Service::HttpServer, TestHttpServerCallback.new
+      clnt = EventMachine::HttpRequest.new('http://127.0.0.1:8080/').get
+      clnt.callback do
+        data = clnt.response
+        EM.stop
+      end
+      clnt.errback do
+        EM.stop
+      end
+    }
+    refute_equal('', data)
+    assert(data =~ /TORCH/i)
 	end
 end
+
+# EM.run { EventMachine::start_server "0.0.0.0", 8080, Rubot::Service::HttpServer, TestHttpServerCallback.new }

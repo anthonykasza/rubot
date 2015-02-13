@@ -8,6 +8,7 @@ module Rubot
 				include EM::Socksify
 				def initialize(url, callback)
 					@uri = URI.parse(url)
+          @callback = callback
 				end
 				
 				def connection_completed
@@ -19,6 +20,8 @@ module Rubot
 				def receive_data(data)
 					@callback.call(data) if @callback
 				end
+        
+        def callback(&callback)
 			end
 		end
 	end
