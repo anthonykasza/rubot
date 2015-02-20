@@ -14,6 +14,9 @@ class ExploitCallback
   end
 end
 
+class TestTorTCPBot < Minitest::Test
+  def test_connect_to_an_HTTP_server_via_Tor_and_execute_a_basic_command
+
 
 class TestVulnerableWebClient < Minitest::Test
   def test_form_a_proxy_and_connect_to_google

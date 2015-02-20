@@ -28,7 +28,7 @@ class TestTorTCPBot < Minitest::Test
         :inactivity_timeout => 300
     }
 		EM.run {
-      #srvr = EventMachine::start_server "0.0.0.0", 8080, Rubot::Service::HttpServer, TestHttpServerCallback.new
+      srvr = EventMachine::start_server "0.0.0.0", 8080, Rubot::Service::HttpServer, TestHttpServerCallback.new
       clnt = EventMachine::HttpRequest.new("http://wnlya3iqufiejln7.onion:80/index.html", connection_opts).get
       clnt.callback do
         data = clnt.response
@@ -45,7 +45,7 @@ class TestTorTCPBot < Minitest::Test
   def test_connect_to_an_HTTP_server_and_execute_a_basic_command
     data = ""
     EventMachine.run {
-      #srvr = EventMachine::start_server "0.0.0.0", 8080, Rubot::Service::HttpServer, TestHttpServerCallback.new
+      srvr = EventMachine::start_server "0.0.0.0", 8080, Rubot::Service::HttpServer, TestHttpServerCallback.new
       clnt = EventMachine::HttpRequest.new('http://127.0.0.1:8080/').get
       clnt.callback do
         data = clnt.response
