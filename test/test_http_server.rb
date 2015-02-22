@@ -64,8 +64,8 @@ goog-phish-shavar;a:223722-233271:s:105065-109427:mac
 end
 
 class TestHttpCallback
-	def handle_http_request(headers, body)
-		(body == "goog-phish-shavar;a:223722-233271:s:105065-109427:mac\n\n") ? 'GoodToGo!' : 'WaitAMinute!'
+	def handle_http_request(parser)
+		(parser.body == "goog-phish-shavar;a:223722-233271:s:105065-109427:mac\n\n") ? 'GoodToGo!' : 'WaitAMinute!'
 	end
 end
 

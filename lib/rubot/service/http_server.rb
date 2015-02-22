@@ -1,3 +1,5 @@
+require 'uri'
+
 module Rubot
 	module Service
 		# A request sent by the client to the server.
@@ -10,6 +12,16 @@ module Rubot
 			attr_reader :body
 			# Client Headers
 			attr_reader :headers
+      # Verb
+      attr_reader :verb
+      # Path
+      attr_reader :path
+      # uri
+      attr_reader :uri
+      # query hash
+      attr_reader :query_hash
+      # http version
+      attr_reader :httpver
 
 			def initialize
 				@finished = false
@@ -17,6 +29,11 @@ module Rubot
 				@nparsed = 0
 				@body = ''
 				@headers = {}
+        @verb = nil
+        @path = nil
+        @httpver = nil
+        @uri = nil
+        @query_hash = {}
 			end
 
 			# Parse a chunk of data into the request environment
@@ -36,7 +53,11 @@ module Rubot
 							@headers[k] = v
 						end
 						@headers['CONTENT_LENGTH'] = (@headers['CONTENT_LENGTH']) ? @headers['CONTENT_LENGTH'].to_i : 0
-						@verb, @path, @httpver = request.split(/ /)
+						@verb, @fullpath, @httpver = request.split(/ /)
+            @uri = URI.parse(@fullpath)
+            if @uri.query
+              @query_hash = Hash[*@uri.query.split(/&/).map {|x| x.split(/=/,2)}.flatten]
+            end
 						@finished = true
 					end
 				end
@@ -72,8 +93,8 @@ module Rubot
 		end
 		
 		class DefaultCallback
-			def handle_http_request(headers, body)
-				headers.map{|x,y| "#{x}->#{y}"}.join(" ")
+			def handle_http_request(parser)
+				parser.headers.map{|x,y| "#{x}->#{y}"}.join(" ")
 			end
 		end
 		
@@ -88,7 +109,7 @@ module Rubot
 			
 			def receive_data(data)
 				if @parser.parse(data)
-					data = @callback.handle_http_request(@parser.headers, @parser.body)
+					data = @callback.handle_http_request(@parser)
 					keep_alive = @parser.persistent?
 					send_data("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: #{data.bytesize}\r\n#{ keep_alive  ? "Connection: Keep-Alive\r\n" : nil}\r\n#{data}")
 					if keep_alive
