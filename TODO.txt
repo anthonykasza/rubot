@@ -1,0 +1,46 @@
+Services
+* DNS server (done)
+* POP3 server
+* SMTP server
+* HTTP server (done)
+* IRC server (done)
+* SMB server (ew, I do not want to implement this)
+* FTP server
+
+C2
+* IRC
+* HTTP (socks, tor, SSL)
+* P2P (tcp, udp)
+* P2P on filesharing protocol
+* Custom TCP (subcase of P2P)
+* Custom UDP (subcase of P2P)
+* Custom ICMP (probably limited to root)
+* Custom packet (limited to root)
+
+Spreading
+* Email trojan (related to Spam)
+* Web trojan
+* Client-side Email exploit
+* Client-side Web exploit
+* Exploiting any of the servers above (related to worm)
+* USB? - how should we model this? maybe a file monitor
+* Worm - this is a behavior, not a model/class per se
+
+Other
+* FastFlux (done)
+* Proxy (done)
+
+Attack
+* DoS
+  * Packeting engine needed
+* Scan
+* Spam
+
+Models
+* GTBot
+* Nugache
+* Storm
+* Conficker
+* GameOverZeus
+
+
