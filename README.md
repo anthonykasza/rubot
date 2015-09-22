@@ -29,6 +29,29 @@ Or install it yourself as:
 
     $ gem install rubot
 
+### Debian/Ubuntu Users
+Install the required packages
+
+	sudo aptitude install screen git ruby bundler libsqlite3-dev sqlite3 ruby-dev tor
+	sudo /etc/init.d/tor start # if you plan to use tor in your experiment
+
+Download the Code
+
+	git clone https://github.com/chrislee35/rubot.git
+
+Install the Ruby dependencies
+
+	cd rubot
+	bundle install
+
+Test the install
+
+	rake test
+	# To do a specific test
+	RUBYLIB=lib ruby test/test_file_name.rb
+	# To run a specific test case (example)
+	RUBYLIB=lib ruby test/test_http_server.rb -n test_use_a_custom_callback_for_the_http_server
+
 ## Usage
 
 Currently, this is quite unusable :)  I'm still adding all the base functionality.  Look at the test cases for what is currently working.

@@ -10,7 +10,7 @@ require_relative 'helper'
 require 'em-http'
 
 class TestHttpServerCallback
-	def handle_http_request(headers, body)
+	def handle_http_request(parser)
 		"TORCH"
 	end
 end

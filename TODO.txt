@@ -1,21 +1,21 @@
 Services
 * DNS server (done)
-* POP3 server
-* SMTP server
+* POP3 server (done)
+* SMTP server (done)
 * HTTP server (done)
 * IRC server (done)
 * SMB server (ew, I do not want to implement this)
-* FTP server
+* FTP server (done)
 
 C2
-* IRC
-* HTTP (socks, tor, SSL)
-* P2P (tcp, udp)
+* IRC (done)
+* HTTP (socks, tor, SSL) (done)
+* P2P (tcp, udp) (done)
 * P2P on filesharing protocol
 * Custom TCP (subcase of P2P)
 * Custom UDP (subcase of P2P)
-* Custom ICMP (probably limited to root)
-* Custom packet (limited to root)
+* Custom ICMP (probably limited to root) (future work)
+* Custom packet (limited to root) (future work)
 
 Spreading
 * Email trojan (related to Spam)
@@ -43,4 +43,5 @@ Models
 * Conficker
 * GameOverZeus
 
-
+Engine
+* Build Event+Timer Engine so that Rubot can be run in emulation and simulation modes. -- HARD
