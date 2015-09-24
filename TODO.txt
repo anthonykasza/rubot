@@ -1,11 +1,11 @@
 Services
 * DNS server (done) 
-* POP3 server (done) EventMachine::EmailServer::POP3Server
-* SMTP server (done) EventMachine::EmailServer::SMTPServer
+* POP3 server (done) Rubot::Service::EmailServer::POP3Server
+* SMTP server (done) Rubot::Service::SMTPServer
 * HTTP server (done) Rubot::Service::HttpServer
-* IRC server (done) EventMachine::Irc::Server
+* IRC server (done) Rubot::Service::Irc
 * SMB server (ew, I do not want to implement this)
-* FTP server (done) EM::FTPD::Server, EM::FTPD::Memory::Driver
+* FTP server (done) Rubot::Service::FTPD
 
 C2
 * IRC (done)

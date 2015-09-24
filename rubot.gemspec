@@ -18,12 +18,14 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "eventmachine", ">= 0.12.10"
-  spec.add_runtime_dependency "em-socksify", ">= 0.2.1"
+  spec.add_runtime_dependency "eventmachine", ">= 1.0.8"
+  spec.add_runtime_dependency "em-socksify", ">= 0.3.1"
   spec.add_runtime_dependency "sqlite3", ">= 1.3.6"
   spec.add_runtime_dependency "em-http-request", ">= 1.1.2"
   spec.add_runtime_dependency "em-http-server", ">= 0.1.8"
   spec.add_runtime_dependency "em-irc", ">= 0.0.2"
+  spec.add_runtime_dependency "em-ftpd", "~> 0.0.1"
+  spec.add_runtime_dependency "em-ftpd-memory", "~> 0.0.7"
   spec.add_runtime_dependency "eventmachine-email_server", ">= 0.0.6"
   spec.add_runtime_dependency "eventmachine-irc-server", ">= 0.0.2"
   spec.add_runtime_dependency "ratelimit-bucketbased", ">= 0.0.1"
