@@ -8,7 +8,6 @@ end
 
 require_relative 'helper'
 require 'em-irc'
-require 'eventmachine/irc/server'
 require 'logger'
 
 # monkey patching broken gem
@@ -27,8 +26,8 @@ class TestIrcBot < Minitest::Test
   def test_connect_to_an_IRC_server
     $test_connect_to_an_IRC_server_test_pass = false
     EM.run {
-      srvr = EventMachine::start_server "0.0.0.0", 6667, EventMachine::IRC::Server
-      client = EventMachine::IRC::Client.new do
+      srvr = EventMachine::start_server "0.0.0.0", 6667, Rubot::Service::IRC
+      client = Rubot::Control::IRC.new do
         host '127.0.0.1'
         port '6667'
 
@@ -62,7 +61,7 @@ class TestIrcBot < Minitest::Test
         end
       end
       client.connect
-      botmaster = EventMachine::IRC::Client.new do
+      botmaster = Rubot::Control::IRC.new do
         host '127.0.0.1'
         port '6667'
 

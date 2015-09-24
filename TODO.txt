@@ -1,16 +1,16 @@
 Services
-* DNS server (done)
-* POP3 server (done)
-* SMTP server (done)
-* HTTP server (done)
-* IRC server (done)
+* DNS server (done) 
+* POP3 server (done) EventMachine::EmailServer::POP3Server
+* SMTP server (done) EventMachine::EmailServer::SMTPServer
+* HTTP server (done) Rubot::Service::HttpServer
+* IRC server (done) EventMachine::Irc::Server
 * SMB server (ew, I do not want to implement this)
-* FTP server (done)
+* FTP server (done) EM::FTPD::Server, EM::FTPD::Memory::Driver
 
 C2
 * IRC (done)
-* HTTP (socks, tor, SSL) (done)
-* P2P (tcp, udp) (done)
+* HTTP (socks, tor, SSL) (done) EventMachine::HttpRequest, Rubot::Control::Tor::HttpGet
+* P2P (tcp, udp) (done) Rubot::Control::P2P::Peer
 * P2P on filesharing protocol
 * Custom TCP (subcase of P2P)
 * Custom UDP (subcase of P2P)
@@ -27,14 +27,18 @@ Spreading
 * Worm - this is a behavior, not a model/class per se
 
 Other
-* FastFlux (done)
-* Proxy (done)
+* FastFlux (done) Rubot::Service::FastFlux
+* Proxy (almost done) Rubot::Services::Proxy::TCP, Rubot::Services::Socks4 (need to implement Rubot::Services::Proxy::UDP)
 
 Attack
 * DoS
   * Packeting engine needed
 * Scan
 * Spam
+
+SMTP
+* DNSBL (done) EventMachine::DNSBL
+* 
 
 Models
 * GTBot
