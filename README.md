@@ -32,7 +32,7 @@ Or install it yourself as:
 ### Debian/Ubuntu Users
 Install the required packages
 
-	sudo aptitude install screen git ruby bundler libsqlite3-dev sqlite3 ruby-dev tor
+	sudo aptitude install screen git ruby bundler libsqlite3-dev sqlite3 ruby-dev tor hping3 nmap libgsl0-dev
 	sudo /etc/init.d/tor start # if you plan to use tor in your experiment
 
 Download the Code

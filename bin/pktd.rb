@@ -117,7 +117,7 @@ class MyProcess
 end
 
 if __FILE__ == $0
-  server = WEBrick::HTTPServer.new :Port => 7777
+  server = WEBrick::HTTPServer.new :Port => 7777, :BindAddress => '127.0.0.1'
   server.mount '/pkt', PktFlow
   server.mount '/scan', PortScanner
   server.mount '/stop', Stopper
