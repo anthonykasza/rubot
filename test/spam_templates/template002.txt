@@ -1,0 +1,6 @@
+From: <%= from %>
+To: <%= to %>
+Subject: <%= subject %>
+
+<%= body %>
+~~!~~a@localhost b@localhost~~!~~spammer1@localhost spammer2@localhost~~!~~http://maldom1.com/ http://maldom2.com
