@@ -31,14 +31,12 @@ Other
 * Proxy (almost done) Rubot::Services::Proxy::TCP, Rubot::Services::Socks4 (need to implement Rubot::Services::Proxy::UDP)
 
 Attack
-* DoS
-  * Packeting engine needed
-* Scan
-* Spam
+* DoS (done)
+* Scan (done)
+* Spamn (done)
 
 SMTP
 * DNSBL (done) EventMachine::DNSBL
-* 
 
 Models
 * GTBot
@@ -49,3 +47,6 @@ Models
 
 Engine
 * Build Event+Timer Engine so that Rubot can be run in emulation and simulation modes. -- HARD
+
+Next
+- GTBot
