@@ -10,18 +10,6 @@ require_relative 'helper'
 require 'em-irc'
 require 'logger'
 
-# monkey patching broken gem
-module EventMachine
-  module IRC
-    class Client
-      def unbind(reason)
-        log Logger::INFO "Unbind reason: #{reason}" if reason != nil
-        trigger(:disconnect)
-      end
-    end
-  end
-end
-
 class TestIrcBot < Minitest::Test
   def test_connect_to_an_IRC_server
     $test_connect_to_an_IRC_server_test_pass = false
