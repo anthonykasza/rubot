@@ -31,12 +31,12 @@ module Rubot
             lines.each do |line|
               #puts line
               if line =~ /^Host:\s+([\d\.]+).*?Ports:\s+(.*)/
-                # Host: 192.168.1.1 ()	Ports: 80/open/tcp//http///, 443/open/tcp//https///
-                host,portinfo = [$1,$2]
-                ports = portinfo.gsub(/[^\d\,]/,'').split(/\,/)
-                callback.call(host, ports)
+                # Host: 192.168.1.1 ()	Ports: 80/open/tcp//http///, 443/open/tcp//https/// Ignored State: closed (362)
+                host, portinfo = [$1,$2]
+                ports = portinfo.gsub(/Ignored.*/, '').gsub(/[^\d\,]/,'').split(/\,/)
+                callback.call(host, ports) if callback
               elsif line =~ /^\# Nmap done at/
-                callback.call(nil, nil)
+                callback.call(nil, nil) if callback
               end
             end
           end
