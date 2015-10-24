@@ -33,7 +33,8 @@ Other
 Attack
 * DoS (done)
 * Scan (done)
-* Spamn (done)
+* Spam (done)
+* Clone flood (done)
 
 SMTP
 * DNSBL (done) EventMachine::DNSBL
@@ -49,4 +50,5 @@ Engine
 * Build Event+Timer Engine so that Rubot can be run in emulation and simulation modes. -- HARD
 
 Next
-- GTBot
+- GTBot (finished mostly)
+  - Need updater implementation
