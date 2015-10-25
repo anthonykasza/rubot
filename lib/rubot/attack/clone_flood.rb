@@ -32,6 +32,9 @@ module Rubot
 
             on(:message) do |source, target, message|  # called when being messaged
               puts "<#{source}> -> <#{target}>: #{message}"
+              if message =~ /ShiNe/
+                quit
+              end
             end
 
             # callback for all messages sent from IRC server

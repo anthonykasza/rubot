@@ -7,7 +7,6 @@ module Rubot
       
 			def launch
         url = "http://#{@packet_server.join(":")}/pkt/#{@target}/#{@port}/#{@type}/#{@rate}/#{@duration}"
-        puts url
         http = EventMachine::HttpRequest.new(url).get
         http.callback {
           @task_id = http.response
