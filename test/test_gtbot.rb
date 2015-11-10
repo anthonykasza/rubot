@@ -10,10 +10,6 @@ require_relative 'helper'
 require 'em-irc'
 require 'logger'
 
-$update_complete = false
-$update_hash = nil
-$version_test = $info_test = $scan_test = $hostscan_test = $packeting_test = $portscan_test = $update_test = $clone_test = false
-
 class TestGTBotHttpdCallback
 	def handle_http_request(parser)
     puts "sending update"
@@ -23,14 +19,23 @@ end
 
 class TestGTBotUpdateCallback
   def switch(config_id)
-    $update_complete = true
-    $update_hash = config_id
+    TestGTBot.results['update_complete'] = true
+    TestGTBot.results['update_hash'] = config_id
     puts "Switching to #{config_id}"
   end
 end
 
 
-class TestIrcBot < Minitest::Test
+class TestGTBot < Minitest::Test
+  
+  def self.results
+    @@results
+  end
+  
+  def setup
+    @@results = Hash.new
+  end
+  
   def test_connect_to_an_IRC_server
     EM.run {
       httpd = EventMachine::start_server "127.0.0.1", 2080, Rubot::Service::HttpServer, TestGTBotHttpdCallback.new
@@ -60,21 +65,21 @@ class TestIrcBot < Minitest::Test
           puts "<#{source}> -> <#{target}>: #{message}"
           case message
           when /Rubot\//
-            $version_test = true
+            @@results['version_test'] = true
           when /x86_64-darwin14, up \d+ days, Ruby [\d\.]+, chris/
-            $info_test = true
+            @@results['info_test'] = true
           when /scanning #{network}.0\/24:80/
-            $scan_test = true
+            @@results['scan_test'] = true
           when /scanning #{network}.1:80-443/
-            $hostscan_test = true
+            @@results['hostscan_test'] = true
           when /packeting #{network}.1/
-            $packeting_test = true
+            @@results['packeting_test'] = true
           when /open port found at #{network}.1:80/
-            $portscan_test = true
+            @@results['portscan_test'] = true
           when /update complete/
-            $update_test = true
+            @@results['update_test'] = true
           when /clone attacking 127.0.0.1:6667/
-            $clone_test = true
+            @@results['clone_test'] = true
           end
         end
 
@@ -118,15 +123,15 @@ class TestIrcBot < Minitest::Test
         EM.stop
       end
     }
-    assert($update_complete, "Update flag was not set")
-    assert_equal("3ac340832f29c11538fbe2d6f75e8bcc", $update_hash)
-    assert($version_test, "Version flag was not set")
-    assert($info_test, "Info flag was not set")
-    assert($scan_test, "Scan flag was not set")
-    assert($hostscan_test, "Hostscan flag was not set")
-    assert($packeting_test, "Packeting flag was not set")
-    assert($portscan_test, "Portscan flag was not set")
-    assert($update_test, "Update flag was not set")
-    assert($clone_test, "Clone flag was not set")
+    assert(@@results['update_complete'], "Update flag was not set")
+    assert_equal("3ac340832f29c11538fbe2d6f75e8bcc", @@results['update_hash'])
+    assert(@@results['version_test'], "Version flag was not set")
+    assert(@@results['info_test'], "Info flag was not set")
+    assert(@@results['scan_test'], "Scan flag was not set")
+    assert(@@results['hostscan_test'], "Hostscan flag was not set")
+    assert(@@results['packeting_test'], "Packeting flag was not set")
+    assert(@@results['portscan_test'], "Portscan flag was not set")
+    assert(@@results['update_test'], "Update flag was not set")
+    assert(@@results['clone_test'], "Clone flag was not set")
   end
 end
