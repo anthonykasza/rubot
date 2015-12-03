@@ -4,8 +4,6 @@ require 'digest/md5'
 require 'open-uri'
 require 'rubot/control/p2p/p2p'
 
-@@debug = false
-
 module Rubot
 	module Model
     module Nugache
